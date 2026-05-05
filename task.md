@@ -1,0 +1,8 @@
+- [x] `task.md` oluşturuldu.
+- [x] `veri_ureteci.py` (Python veri üretici kodu) yazıldı.
+- [x] `veri_kriterleri.md` (Analiz kriterleri ve detaylı doküman) hazırlandı.
+- [x] `ozellikler.txt` (Backend ekibi için özet özellik listesi) oluşturuldu.
+- [x] Veri setinin (5000 satır) doğruluğu kontrol edildi.
+- [x] `risk_hesaplayici.py` (Ağırlıklı risk puanlama fonksiyonu) yazıldı.
+- [x] `README.md` dosyasına risk formülü eklendi.
+- [x] `proje_ozeti.md` (Basit anlatımlı proje özeti) oluşturuldu.

@@ -20,3 +20,14 @@ Bir dedektif gibi düşün! Üç temel ipucuna bakıyoruz:
 Artık elimizde her işlemin ne kadar riskli olduğunu gösteren bir tablomuz var. Puanı yüksek olan işlemleri sistem otomatik olarak durdurabilir veya size "Gerçekten siz misiniz?" diye soran bir mesaj gönderebilir.
 
 Böylece Lyrabit, sadece bir cüzdan değil, aynı zamanda akıllı bir koruma kalkanı haline geliyor!
+
+Analiz Sonucu:
+Ortalama Risk Puanı: 39.84
+Yüksek Riskli (>70) İşlemler: 68 adet işlem "Çok Riskli" olarak işaretlendi. Özellikle hem gece yapılıp hem de tutarı çok yüksek olan işlemler 100 tam puan aldı.
+
+
+implementation_plan.md
+: Sadece veri üretimi ve ilk kurulum bilgilerini içeriyor.
+
+gelistirme_plani_adim2.md
+: Risk skorlama ve formül ile ilgili yeni bilgileri bu dosyaya taşıdım.

@@ -1,32 +1,49 @@
-# Lyrabit Risk Skorlama Sistemi Planı (Adım 2)
+# Lyrabit Sentetik Veri Üretim Planı (Adım 1)
 
-Bu aşamada, üretilen veriler üzerinde her bir işlemin ne kadar riskli olduğunu gösteren 0-100 arası bir "Risk Puanı" (fraud_score) hesaplayacağız.
+Bu plan, PayPal alternatifi olan "lyrabit" projesi için 5.000 satırlık sentetik banka işlem verisi oluşturulmasını kapsamaktadır. Veriler, dolandırıcılık tespiti (fraud detection) analizi için özel olarak tasarlanacaktır.
 
-## Önerilen Değişiklikler
+## Kullanıcı Geri Bildirimi ve Açıklamalar
 
-### [Analiz ve Modelleme]
+> [!NOTE]
+> **IP Adresi Nedir?**: İşlemin yapıldığı internet bağlantısının kimliğidir. Dolandırıcılık analizinde, kullanıcının her zamanki konumundan farklı bir ülkeden veya "Proxy/VPN" kullanarak işlem yapıp yapmadığını anlamamıza yardımcı olur.
+> 
+> **İşlem Kanalı Nedir?**: İşlemin hangi platform üzerinden yapıldığını belirtir (örneğin: Mobil Uygulama, Web Sitesi, QR Kod, API). Bazı dolandırıcılık yöntemleri belirli kanallarda daha yoğun görülebilir.
 
-#### [YENİ] [risk_hesaplayici.py](file:///c:/Users/semra/Desktop/Alternative/risk_hesaplayici.py)
-İşlem verilerini okuyan ve aşağıdaki kriterlere göre ağırlıklı risk puanı hesaplayan Python kodu:
-- **Tutar Riski (%40)**: Son 10 işlem ortalamasının 3 katı üzerindeki harcamalar.
-- **Zaman Riski (%30)**: Gece 00:00 - 05:00 arası işlemler.
-- **IP/Konum Riski (%30)**: Kullanıcının daha önce kullanmadığı yeni bir IP adresi.
+## Uygulanan Değişiklikler
 
-#### [GÜNCELLEME] [README.md](file:///c:/Users/semra/Desktop/Alternative/README.md)
-Risk puanı formülünün matematiksel açıklaması eklenecektir.
+### [Veri Mühendisliği]
 
-#### [YENİ] [proje_ozeti.md](file:///c:/Users/semra/Desktop/Alternative/proje_ozeti.md)
-Yapılan tüm işlemlerin teknik bilgisi olmayan birine anlatılır gibi basit bir dille özetlendiği doküman.
+#### [TAMAMLANDI] [veri_ureteci.py](file:///c:/Users/semra/Desktop/Alternative/veri_ureteci.py)
+`pandas` ve `Faker` kütüphanelerini kullanarak 5000 satırlık işlem verisi üreten Python kodu.
 
-## Risk Formülü
-`Risk Puanı = (Tutar_Skoru * 0.4) + (Zaman_Skoru * 0.3) + (IP_Skoru * 0.3)`
+#### [TAMAMLANDI] [veri_kriterleri.md](file:///c:/Users/semra/Desktop/Alternative/veri_kriterleri.md)
+Veri seti yapısını, sütun açıklamalarını ve dolandırıcılık sinyallerini listeleyen doküman.
+
+#### [TAMAMLANDI] [ozellikler.txt](file:///c:/Users/semra/Desktop/Alternative/ozellikler.txt)
+Backend ekibi için hazırlanan özet özellik listesi.
+
+## Veri Seti Özellikleri (Sütunlar)
+1.  **islem_id**: Benzersiz işlem numarası.
+2.  **zaman_damgasi**: İşlemin gerçekleştiği tarih ve saat.
+3.  **kullanici_id**: Gönderen kullanıcının ID'si.
+4.  **tutar**: İşlem miktarı (TL).
+5.  **alici_adi**: Alıcı (Netflix, Starbucks, Shell vb.).
+6.  **kategori**: Harcama kategorisi (Eğlence, Gıda, Yakıt vb.).
+7.  **sehir/ulke**: İşlemin yapıldığı konum.
+8.  **cihaz_id**: İşlemin yapıldığı cihazın kimliği.
+9.  **ip_adresi**: İnternet bağlantı adresi.
+10. **hesap_yasi_gun**: Kullanıcının hesabını açtığı günden bugüne geçen süre.
+11. **islem_kanali**: Mobil, Web, QR.
+12. **kullanici_ortalama_harcama**: Kullanıcının geçmişteki ortalama harcama tutarı.
+13. **dolandiricilik_mi**: Hedef değişken (1: Evet, 0: Hayır).
 
 ## Doğrulama Planı
 
 ### Otomatik Testler
-- Fonksiyonun 0 ile 100 arasında değer ürettiğini doğrula.
-- Birkaç uç senaryo (örneğin hem gece, hem yüksek tutar, hem yeni IP) için puanın 100 olduğunu kontrol et.
+- [x] `python veri_ureteci.py` komutu çalıştırıldı ve 5000 satırlık çıktı doğrulandı.
+- [x] Eksik (null) veri kontrolü yapıldı.
+- [x] Dolandırıcılık sinyallerinin verideki dağılımı kontrol edildi.
 
 ### Manuel Doğrulama
-- `README.md` dosyasındaki formülün doğruluğunu kontrol et.
-- `proje_ozeti.md` dosyasındaki anlatımın sadeliğini kontrol et.
+- [x] Alıcı isimleri ve kategoriler gözden geçirildi.
+- [x] `veri_kriterleri.md` dosyasının eksiksiz olduğu teyit edildi.
