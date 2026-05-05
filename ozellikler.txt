@@ -1,0 +1,28 @@
+Lyrabit Projesi - Backend Entegrasyon Özellik Listesi
+
+Merhaba, 
+
+Lyrabit PayPal alternatifi projemiz için veri analiz kısmında kullanacağımız ana özellikler (features) aşağıda listelenmiştir. Backend tarafında bu alanların loglanması veya API üzerinden sağlanması dolandırıcılık tespiti başarımız için kritiktir.
+
+1. islem_id (String): Her işlem için unique ID.
+2. zaman_damgasi (DateTime): İşlemin gerçekleşme anı (ISO formatı tercih edilir).
+3. kullanici_id (String): Gönderen kullanıcı referansı.
+4. tutar (Float): İşlem miktarı.
+5. alici_adi (String): Merchant veya alıcı kullanıcı ismi.
+6. kategori (String): İşlemin türü (Market, Eğlence, Borç Ödeme vb.).
+7. sehir (String): İşlemin gerçekleştiği fiziksel konum veya IP'den gelen konum.
+8. ulke (String): İşlem ülkesi.
+9. cihaz_id (String): Kullanıcının cihaz parmak izi (Device Fingerprint).
+10. ip_adresi (String): İşlemin yapıldığı IP.
+11. hesap_yasi_gun (Integer): Kullanıcının kayıt olma tarihinden itibaren geçen gün.
+12. islem_kanali (String): Mobil App, Web, API, QR vb.
+13. kullanici_ortalama_harcama (Float): Kullanıcının son 6 aydaki harcama ortalaması.
+
+Dolandırıcılık Kriterleri:
+- Gece yapılan işlemler (02:00-05:00).
+- Normal harcamanın 10 katı üzerindeki işlemler.
+- Kullanıcın sık kullandığı şehir dışından gelen harcamalar.
+- Yeni hesapların ( < 30 gün ) yaptığı büyük harcamalar.
+
+Bu özellikleri içeren veri seti hazırlandı, modelleme aşamasına geçeceğiz.
+İyi çalışmalar.
