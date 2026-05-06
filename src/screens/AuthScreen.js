@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../constants/theme';
-import { ShieldCheck, Mail, Lock, User } from 'lucide-react-native';
+import { Mail, Lock, User } from 'lucide-react-native';
 import { useUser } from '../context/UserContext';
 
 const AuthScreen = () => {
@@ -13,22 +13,26 @@ const AuthScreen = () => {
     const [tempName, setTempName] = useState('');
 
     const handleAuth = () => {
-        // Eğer kayıt modundaysa ve isim girilmişse ismi güncelle
-        if (!isLogin && tempName.trim() !== '') {
+        if (!isLogin && tempName.trim() !== "") {
             setUserName(tempName);
         }
-        navigation.replace('MainTabs');
+        navigation.replace("MainTabs");
     };
 
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.content}
             >
                 <View style={styles.header}>
-                    <View style={styles.logoContainer}>
-                        <ShieldCheck size={48} color={COLORS.primary} />
+                    {/* Büyütülmüş Logo Alanı */}
+                    <View style={styles.logoWrapper}>
+                        <Image
+                            source={require('../../assets/LyraBit Logo.jpg')}
+                            style={styles.logoImage}
+                            resizeMode="contain"
+                        />
                     </View>
                     <Text style={styles.title}>LyraBit</Text>
                     <Text style={styles.subtitle}>
@@ -43,7 +47,7 @@ const AuthScreen = () => {
                             <TextInput
                                 placeholder="Adınız Soyadınız"
                                 style={styles.input}
-                                onChangeText={setTempName}
+                                onChangeText={(text) => setTempName(text)}
                                 autoCapitalize="words"
                             />
                         </View>
@@ -74,7 +78,6 @@ const AuthScreen = () => {
                         </Text>
                     </TouchableOpacity>
 
-                    {/* Hata olasılığını sıfıra indiren güvenli metin bloğu */}
                     <TouchableOpacity
                         style={styles.switchButton}
                         onPress={() => setIsLogin(!isLogin)}
@@ -95,8 +98,22 @@ const AuthScreen = () => {
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#FFF' },
     content: { flex: 1, padding: 30, justifyContent: 'center' },
-    header: { alignItems: 'center', marginBottom: 40 },
-    logoContainer: { width: 80, height: 80, backgroundColor: '#F0F4FF', borderRadius: 24, justifyContent: 'center', alignItems: 'center', marginBottom: 15 },
+    header: { alignItems: 'center', marginBottom: 30 },
+
+    // Logo Boyut Ayarları
+    logoWrapper: {
+        width: 140, // 100'den 140'a büyütüldü
+        height: 140,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10 // Altındaki başlığa biraz daha yaklaştırıldı
+    },
+    logoImage: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 25 // Boyut büyüdüğü için radius da hafif artırıldı
+    },
+
     title: { fontSize: 32, fontWeight: 'bold', color: COLORS.textDark },
     subtitle: { fontSize: 16, color: COLORS.textLight, marginTop: 5, textAlign: 'center' },
     form: { gap: 15 },

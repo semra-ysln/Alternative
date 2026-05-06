@@ -53,7 +53,7 @@ const BillsScreen = () => {
             {/* Hızlı Ödeme Kategorileri */}
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Hızlı Ödeme</Text>
-                // BillsScreen.js içindeki Grid bölümünü bu şekilde güncelle:
+                {/* BillsScreen.js içindeki Grid bölümünü bu şekilde güncelle: */}
                 <View style={styles.grid}>
                     {[
                         { n: 'BEDAŞ', i: 'lightbulb', c: '#FEF3C7', amt: '487,50' },
