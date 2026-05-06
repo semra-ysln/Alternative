@@ -1,14 +1,14 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { LayoutGrid, Send, History, Sparkles, UserCircle } from 'lucide-react-native';
+import { LayoutGrid, History, Sparkles, UserCircle, WalletCards } from 'lucide-react-native';
 import { COLORS } from '../constants/theme';
 
-// Sayfalar (Brief'teki 5 ana tab)
-import Dashboard from '../screens/Dashboard'; // Home
-import Payments from '../screens/Payments';   // Transfer
-import Activity from '../screens/Activity';   // Transactions
-import AIInsights from '../screens/AIInsights'; // Insights
-import Profile from '../screens/Profile';     // Settings
+// Sayfalar
+import Dashboard from '../screens/Dashboard';
+import Activity from '../screens/Activity';
+import AIInsights from '../screens/AIInsights';
+import Profile from '../screens/Profile';
+import BillsScreen from '../screens/BillsScreen'; // Yeni eklenen Ödemeler ekranı
 
 const Tab = createBottomTabNavigator();
 
@@ -21,20 +21,21 @@ export default function TabNavigator() {
                 tabBarInactiveTintColor: COLORS.textLight,
                 tabBarShowLabel: true,
                 tabBarStyle: {
-                    height: 90,
-                    paddingBottom: 30,
+                    height: 85,
+                    paddingBottom: 20,
                     paddingTop: 10,
                     borderTopWidth: 0,
                     backgroundColor: COLORS.white,
-                    elevation: 25,
+                    paddingHorizontal: 10,
+                    elevation: 15,
                     shadowColor: '#000',
-                    shadowOffset: { width: 0, height: -5 },
-                    shadowOpacity: 0.1,
+                    shadowOffset: { width: 0, height: -4 },
+                    shadowOpacity: 0.05,
                     shadowRadius: 10,
                 },
             }}
         >
-            {/* 1. Home (Dashboard) - P0 */}
+            {/* 1. Ana Sayfa */}
             <Tab.Screen
                 name="Home"
                 component={Dashboard}
@@ -44,17 +45,17 @@ export default function TabNavigator() {
                 }}
             />
 
-            {/* 2. Transfer (Payments) - P0 */}
+            {/* 2. Ödemeler (image_b201ee.png tasarımı burada aktif olacak) */}
             <Tab.Screen
-                name="Transfer"
-                component={Payments}
+                name="Payments"
+                component={BillsScreen}
                 options={{
-                    tabBarLabel: 'Gönder',
-                    tabBarIcon: ({ color }) => <Send size={24} color={color} />,
+                    tabBarLabel: 'Ödemeler',
+                    tabBarIcon: ({ color }) => <WalletCards size={24} color={color} />,
                 }}
             />
 
-            {/* 3. Activity (Transactions) - P0 */}
+            {/* 3. İşlem Geçmişi */}
             <Tab.Screen
                 name="Activity"
                 component={Activity}
@@ -64,7 +65,7 @@ export default function TabNavigator() {
                 }}
             />
 
-            {/* 4. Insights (Security + Spending) - P0 ⭐️ */}
+            {/* 4. AI Analiz */}
             <Tab.Screen
                 name="Insights"
                 component={AIInsights}
@@ -74,7 +75,7 @@ export default function TabNavigator() {
                 }}
             />
 
-            {/* 5. Profile (Settings) - P1 */}
+            {/* 5. Profil */}
             <Tab.Screen
                 name="Profile"
                 component={Profile}
