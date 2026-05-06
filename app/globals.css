@@ -1,0 +1,57 @@
+/* stylelint-disable at-rule-no-unknown */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
+
+:root {
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 237, 242, 255;
+  --background-end-rgb: 248, 250, 255;
+}
+
+[class~="dark"] {
+  --foreground-rgb: 226, 232, 240;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 15, 23, 42;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-start-rgb));
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tüm sayfa arka planı - light: lavanta-beyaz, dark: slate-950 */
+.page-bg {
+  @apply bg-[#eef2ff] dark:bg-[#0f172a];
+}
+
+/* Kart yüzeyleri - light: beyaz, dark: slate-900 */
+.card-surface {
+  @apply bg-white dark:bg-[#1e293b];
+}
+
+/* Sidebar ve Navbar yüzeyi */
+.surface {
+  @apply bg-white dark:bg-[#0f172a];
+}
+
+/* Hover efekti olan kartlar */
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-xl hover:scale-[1.01] active:scale-[0.99];
+}
+
+/* Özel Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-slate-700 rounded-full;
+}
