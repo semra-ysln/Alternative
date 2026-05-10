@@ -1,0 +1,22 @@
+using LyraBit.Core.Entities;
+
+namespace LyraBit.Data.Repositories;
+
+public interface IUserRepository
+{
+    Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+
+    Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
+
+    Task<User?> GetByUsernameAsync(string username, CancellationToken cancellationToken = default);
+
+    Task<User?> GetByEmailOrUsernameAsync(string emailOrUsername, CancellationToken cancellationToken = default);
+
+    Task AddAsync(User user, CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByUsernameAsync(string username, CancellationToken cancellationToken = default);
+
+    Task<List<User>> SearchAsync(string query, int limit, Guid? excludeUserId, CancellationToken cancellationToken = default);
+}

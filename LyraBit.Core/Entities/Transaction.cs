@@ -1,0 +1,36 @@
+using LyraBit.Core.Enums;
+
+namespace LyraBit.Core.Entities;
+
+public class Transaction
+{
+    public Guid Id { get; set; }
+
+    public Guid SenderId { get; set; }
+
+    public Guid ReceiverId { get; set; }
+
+    public decimal Amount { get; set; }
+
+    public string Currency { get; set; } = "TRY";
+
+    public string? Description { get; set; }
+
+    public TransactionStatus Status { get; set; }
+
+    public int? RiskScore { get; set; }
+
+    public string? Category { get; set; }
+
+    public string? IpAddress { get; set; }
+
+    public string? DeviceId { get; set; }
+
+    public string? Channel { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public User Sender { get; set; } = null!;
+
+    public User Receiver { get; set; } = null!;
+}

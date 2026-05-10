@@ -1,0 +1,67 @@
+services:
+  lyrabit-db:
+    image: postgres:16-alpine
+    container_name: LyraBit-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lyrabit
+      POSTGRES_PASSWORD: LyraBitDev_2024!
+      POSTGRES_DB: lyrabit
+    ports:
+      - "5432:5432"
+    volumes:
+      - lyrabit-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lyrabit -d lyrabit"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    networks:
+      - lyrabit-net
+
+  lyrabit-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lyrabit-api:dev
+    container_name: LyraBit-api
+    restart: unless-stopped
+    depends_on:
+      lyrabit-db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      PORT: "8080"
+      ConnectionStrings__DefaultConnection: "Host=lyrabit-db;Port=5432;Database=lyrabit;Username=lyrabit;Password=LyraBitDev_2024!"
+      Jwt__Key: "dev-only-change-me-in-production-min-32-chars-long"
+      Jwt__Issuer: "LyraBit"
+      Jwt__Audience: "LyraBit.Clients"
+      Jwt__ExpiryMinutes: "60"
+    ports:
+      - "5000:8080"
+    networks:
+      - lyrabit-net
+
+  lyrabit-web:
+    build:
+      context: ./Alternative-web-ui
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: "http://localhost:5000"
+    image: lyrabit-web:dev
+    container_name: LyraBit-web
+    restart: unless-stopped
+    depends_on:
+      - lyrabit-api
+    ports:
+      - "3000:3000"
+    networks:
+      - lyrabit-net
+
+volumes:
+  lyrabit-db-data:
+
+networks:
+  lyrabit-net:
+    driver: bridge
